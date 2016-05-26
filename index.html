@@ -1,0 +1,167 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Shopping Express</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+    <div id="alert-modals">
+        <div id="successModal" data-dismiss="modal" class="modal alert-modal fade alert alert-success">
+            <a class="close" data-dismiss="modal" aria-label="close">×</a>
+            <strong class="alert-title float-left">Success</strong>
+            <p class="alert-message">Indicates a successful or positive action.</p>
+        </div>
+        <div id="infoModal" data-dismiss="modal" class="modal alert-modal fade alert alert-info">
+            <a class="close" data-dismiss="modal" aria-label="close">×</a>
+            <strong class="alert-title float-left">Info</strong>
+            <p class="alert-message">This alert box could indicate a neutral informative change or action.</p>
+        </div>
+        <div id="warningModal" data-dismiss="modal" class="modal alert-modal fade alert alert-warning">
+            <a class="close" data-dismiss="modal" aria-label="close">×</a>
+            <strong class="alert-title float-left">Warning</strong>
+            <p class="alert-message">This alert box could indicate a warning that might need attention.</p>
+        </div>
+        <div id="dangerModal" data-dismiss="modal" class="modal alert-modal fade alert alert-danger">
+            <a class="close" data-dismiss="modal" aria-label="close">×</a>
+            <strong class="alert-title float-left">Error</strong>
+            <p class="alert-message">This alert box could indicate a dangerous or potentially negative action.</p>
+        </div>
+    </div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+
+        <div id="shop-navigation-module" class="container">
+            <div class="row">
+                <a class="navbar-brand" href="#">Shopping Express</a>
+                <a id="btnShoppingCart"><img class="shopping-cart" src="images/shopping-cart.png" /></a>
+                <label>Items : </label><span id="lblItemCount">0</span>
+            </div>
+            <div class="shopping-stages-container row">
+                <ul class="shop-stage-list">
+                    <li id="li-shopping" class="current-stage"><a>Shopping</a></li>
+                    <li id="li-shipping"><a>Shipping</a></li>
+                    <li id="li-summary"><a>Summary</a></li>
+                    <li id="li-finsished"><a>Finished</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="container body-content">
+
+        <div id="shop-items-module" class=" row col-lg-12 col-md-12 col-sm-12 row">
+            <div id="shop-item-module-container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>FormattedPrice</th>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody id="shop-items-container"></tbody>
+                </table>
+                <script id="shop-items-template" type="text/x-handlebars-template">
+                    {{#each this}}
+                    <tr id="tr{{ID}}">
+                        <td data-for="Name" data-val="{{Name}}">{{Name}}</td>
+                        <td data-for="Category" data-val="{{Category}}">{{Category}}</td>
+                        <td data-for="FormattedPrice" data-val="{{FormattedPrice}}">{{FormattedPrice}}</td>
+                        <td>
+                            <input id="btnAddToCart-{{ID}}" type="button" class="btnAddToCart btn btn-primary" data-itemId="{{ID}}" value="ADD TO CART" />
+                        </td>
+                        <td>
+                            <input type="button" class="btnCheckout btn btn-success" data-itemId="{{ID}}" value="CHECK OUT" />
+                        </td>
+                    </tr>
+                    {{/each}}
+                </script>
+            </div>
+        </div>
+
+        <div id="shop-shipping-module" class="row col-lg-12 col-md-12 col-sm-12">
+            <div id="shop-shipping-module-container" class="hide">
+                <div class="row">
+                    <section>
+                        <header>
+                            <h2>Select shipping method :</h2>
+                        </header>
+                        <article>
+                            <ul class="shipping-selector">
+                                <li>
+                                    <input type="radio" name="shopping-option" class="shopping-option" id="cbExpress" value="Express">
+                                    <label for="cbExpress">Express (Next day)</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="shopping-option" class="shopping-option" id="cbRoyalMail" value="Royal Mail">
+                                    <label for="cbRoyalMail">Royal Mail (1 year)</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="shopping-option" class="shopping-option" id="cbOrdinary" value="Ordinary">
+                                    <label for="cbOrdinary">Ordinary Shipping (5-10 working days)</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="shopping-option" class="shopping-option" id="cbCourier" value="Courier">
+                                    <label for="cbCourier">Courier (24 hours)</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="shopping-option" class="shopping-option" id="cbOldSchool" value="OldSchool">
+                                    <label for="cbOldSchool">Old School (By bicycle)</label>
+                                </li>
+                            </ul>
+                        </article>
+                    </section>
+                </div>
+                <div class="row">
+                    <input id="btnShippingMethodChosen" class="btn btn-primary" type="button" value="NEXT" />
+                </div>
+            </div>
+        </div>
+
+        <div id="shop-summary-module" class="row col-lg-12 col-md-12 col-sm-12">
+            <div id="shop-summary-module-container" class="hide">
+                <section>
+                    <header>
+                        <h2>CART SUMMARY :</h2>
+                    </header>
+                    <article>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>FormattedPrice</th>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody id="cart-items-container"></tbody>
+                        </table>
+                        <script id="cart-items-template" type="text/x-handlebars-template">
+                            {{#each this}}
+                            <tr id="tr{{ID}}">
+                                <td data-for="Name" data-val="{{Name}}">{{Name}}</td>
+                                <td data-for="Category" data-val="{{Category}}">{{Category}}</td>
+                                <td data-for="FormattedTotalPrice" data-val="{{FormattedTotalPrice}}">{{FormattedTotalPrice}}</td>
+                                <td data-for="Qty" data-val="{{Qty}}">{{Qty}}</td>
+                                <td>
+                                    <input id="btnIncreaseQty-{{ID}}" type="button" class="btnIncreaseQty btn btn-primary" data-itemId="{{ID}}" data-itemQty="{{Qty}}" value="+" />
+                                </td>
+                                <td>
+                                    <input id="btnDecreaseQty-{{ID}}" type="button" class="btnDecreaseQty btn btn-primary" data-itemId="{{ID}}" data-itemQty="{{Qty}}" value="-" />
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </script>
+                    </article>
+                </section>
+            </div>
+        </div>
+
+    </div>
+
+    <script data-main="scripts/appShoppingExpress.js" src="scripts/require.js"></script>
+</body>
+</html>
